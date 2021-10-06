@@ -67,7 +67,7 @@
 			<header class="header">
 				<div class="logo-container">
 					<a href="../" class="logo">
-						<img src="assets/images/logo.png" height="35" alt="Porto Admin" />
+						<img src="assets/images/logo.png" height="40" alt="Porto Admin" />
 					</a>
 					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
 						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -328,6 +328,108 @@
 					</header>
 
 					<!-- start: page -->
+					<div class="col-md-12 col-lg-12 col-xl-4">
+								<h5 class="text-semibold text-dark text-uppercase mb-md mt-lg">Box Colors</h5>
+								<div class="row">
+									<div class="col-md-6 col-xl-12">
+										<section class="panel">
+											<div class="panel-body bg-primary">
+												<div class="widget-summary">
+													<div class="widget-summary-col widget-summary-col-icon">
+														<div class="summary-icon">
+															<i class="fa fa-life-ring"></i>
+														</div>
+													</div>
+													<div class="widget-summary-col">
+														<div class="summary">
+															<h4 class="title">Support Questions</h4>
+															<div class="info">
+																<strong class="amount">1281</strong>
+															</div>
+														</div>
+														<div class="summary-footer">
+															<a class="text-uppercase">(view all)</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+									<div class="col-md-6 col-xl-12">
+										<section class="panel">
+											<div class="panel-body bg-secondary">
+												<div class="widget-summary">
+													<div class="widget-summary-col widget-summary-col-icon">
+														<div class="summary-icon">
+															<i class="fa fa-life-ring"></i>
+														</div>
+													</div>
+													<div class="widget-summary-col">
+														<div class="summary">
+															<h4 class="title">Support Questions</h4>
+															<div class="info">
+																<strong class="amount">1281</strong>
+															</div>
+														</div>
+														<div class="summary-footer">
+															<a class="text-uppercase">(view all)</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+									<div class="col-md-6 col-xl-12">
+										<section class="panel">
+											<div class="panel-body bg-tertiary">
+												<div class="widget-summary">
+													<div class="widget-summary-col widget-summary-col-icon">
+														<div class="summary-icon">
+															<i class="fa fa-life-ring"></i>
+														</div>
+													</div>
+													<div class="widget-summary-col">
+														<div class="summary">
+															<h4 class="title">Support Questions</h4>
+															<div class="info">
+																<strong class="amount">1281</strong>
+															</div>
+														</div>
+														<div class="summary-footer">
+															<a class="text-uppercase">(view all)</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+									<div class="col-md-6 col-xl-12">
+										<section class="panel">
+											<div class="panel-body bg-quartenary">
+												<div class="widget-summary">
+													<div class="widget-summary-col widget-summary-col-icon">
+														<div class="summary-icon">
+															<i class="fa fa-life-ring"></i>
+														</div>
+													</div>
+													<div class="widget-summary-col">
+														<div class="summary">
+															<h4 class="title">Support Questions</h4>
+															<div class="info">
+																<strong class="amount">1281</strong>
+															</div>
+														</div>
+														<div class="summary-footer">
+															<a class="text-uppercase">(view all)</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
 					<!-- end: page -->
 				</section>
 			</div>

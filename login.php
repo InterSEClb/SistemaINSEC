@@ -40,13 +40,15 @@
 		<!-- Head Libs -->
 		<script src="assets/vendor/modernizr/modernizr.js"></script>
 
+		<title>Acceso InterSEC</title>
+
 	</head>
 	<body>
 		<!-- start: page -->
 		<section class="body-sign">
 			<div class="center-sign">
 				<a href="/" class="logo pull-left">
-					<img src="assets/images/logo.png" height="54" alt="Porto Admin" />
+					<img src="assets/images/logo.png" height="75" alt="Porto Admin" />
 				</a>
 
 				<div class="panel panel-sign">
@@ -56,7 +58,7 @@
 					<div class="panel-body">
 						<form action="loginCheck.php" method="POST">
 							<div class="form-group mb-lg">
-								<label>Username</label>
+								<label>Usuario / CodigoID</label>
 								<div class="input-group input-group-icon">
 									<input name="username" type="text" class="form-control input-lg" />
 									<span class="input-group-addon">
@@ -69,7 +71,7 @@
 
 							<div class="form-group mb-lg">
 								<div class="clearfix">
-									<label class="pull-left">Password</label>
+									<label class="pull-left">Contraseña / PIN</label>
 								</div>
 								<div class="input-group input-group-icon">
 									<input name="password" type="password" class="form-control input-lg" />

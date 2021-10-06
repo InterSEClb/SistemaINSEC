@@ -15,6 +15,6 @@
 		header('Location: login.php');
 	}elseif($sentencia->rowCount() == 1){
 		$_SESSION['codigo'] = $datos->codigo_id;
-		header('Location: index.php');
+		header('Location: dashboard/index.php');
 	}
 ?>
