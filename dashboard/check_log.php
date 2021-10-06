@@ -20,5 +20,7 @@
 		$nombreSis = $sis_row['nombre_sistema'];
 		$verSis = $sis_row['version'];
 
+       // $totalUS = $bd->query("select count(1) from usuarios");
+
 	
 ?>
