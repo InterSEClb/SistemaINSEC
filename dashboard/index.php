@@ -1,736 +1,308 @@
-<?php  
-	session_start();
-	if (!isset($_SESSION['codigo'])) {
-		header('Location: ../login.php');
-	}elseif(isset($_SESSION['codigo'])){
-		include '../model/conn.php';
-		$sentencia = $bd->query("SELECT * FROM usuarios;");
-		$usuarios = $sentencia->fetchAll(PDO::FETCH_OBJ);
-		//print_r($alumnos);
-	}else{
-		echo "Error en el sistema";
-	}
-		$session_id = $_SESSION['codigo'];
-		$session_query = $bd->query("select * from usuarios where codigo_id = '$session_id'");
-		$user_row = $session_query->fetch();
-		$codigoUS = $user_row['codigo_id'];
-
-		$meta_sistema = $bd->query("select * from sismeta");
-		$sis_row = $meta_sistema->fetch();
-		$nombreSis = $sis_row['nombre_sistema'];
-		$verSis = $sis_row['version'];
-
-	
-?>
+<?php include "check_log.php"; ?>
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $nombreSis ?> Ver. <?php echo $verSis ?> </title>
-
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-
-    <link rel="stylesheet" href="assets/vendors/chartjs/Chart.min.css">
-
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-</head>
-
-<body>
-    <div id="app">
-        <div id="sidebar" class='active'>
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <img src="assets/images/logo.svg" alt="" srcset="">
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-
-
-                        <li class='sidebar-title'>Main Menu</li>
-
-
-
-                        <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
-                                <i data-feather="home" width="20"></i>
-                                <span>Dashboard</span>
-                            </a>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="triangle" width="20"></i>
-                                <span>Components</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="component-alert.html">Alert</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-badge.html">Badge</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-breadcrumb.html">Breadcrumb</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-buttons.html">Buttons</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-card.html">Card</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-carousel.html">Carousel</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-dropdowns.html">Dropdowns</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-list-group.html">List Group</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-modal.html">Modal</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-navs.html">Navs</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-pagination.html">Pagination</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-progress.html">Progress</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-spinners.html">Spinners</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-tooltips.html">Tooltips</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="briefcase" width="20"></i>
-                                <span>Extra Components</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="component-extra-avatar.html">Avatar</a>
-                                </li>
-
-                                <li>
-                                    <a href="component-extra-divider.html">Divider</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                        <li class='sidebar-title'>Forms &amp; Tables</li>
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="file-text" width="20"></i>
-                                <span>Form Elements</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-
-                                <li>
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-
-                                <li>
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-
-                                <li>
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-
-                                <li>
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-
-                                <li>
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  ">
-                            <a href="form-layout.html" class='sidebar-link'>
-                                <i data-feather="layout" width="20"></i>
-                                <span>Form Layout</span>
-                            </a>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  ">
-                            <a href="form-editor.html" class='sidebar-link'>
-                                <i data-feather="layers" width="20"></i>
-                                <span>Form Editor</span>
-                            </a>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  ">
-                            <a href="table.html" class='sidebar-link'>
-                                <i data-feather="grid" width="20"></i>
-                                <span>Table</span>
-                            </a>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  ">
-                            <a href="table-datatable.html" class='sidebar-link'>
-                                <i data-feather="file-plus" width="20"></i>
-                                <span>Datatable</span>
-                            </a>
-
-                        </li>
-
-
-
-
-                        <li class='sidebar-title'>Extra UI</li>
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="user" width="20"></i>
-                                <span>Widgets</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="ui-chatbox.html">Chatbox</a>
-                                </li>
-
-                                <li>
-                                    <a href="ui-pricing.html">Pricing</a>
-                                </li>
-
-                                <li>
-                                    <a href="ui-todolist.html">To-do List</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="trending-up" width="20"></i>
-                                <span>Charts</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="ui-chart-chartjs.html">ChartJS</a>
-                                </li>
-
-                                <li>
-                                    <a href="ui-chart-apexchart.html">Apexchart</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                        <li class='sidebar-title'>Pages</li>
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="user" width="20"></i>
-                                <span>Authentication</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="auth-login.html">Login</a>
-                                </li>
-
-                                <li>
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-
-                                <li>
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i data-feather="alert-circle" width="20"></i>
-                                <span>Errors</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li>
-                                    <a href="error-403.html">403</a>
-                                </li>
-
-                                <li>
-                                    <a href="error-404.html">404</a>
-                                </li>
-
-                                <li>
-                                    <a href="error-500.html">500</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-
-
-
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-            </div>
-        </div>
-        <div id="main">
-            <nav class="navbar navbar-header navbar-expand navbar-light">
-                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                        <li class="dropdown nav-icon">
-                            <a href="#" data-bs-toggle="dropdown"
-                                class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="bell"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
-                                <h6 class='py-2 px-4'>Notifications</h6>
-                                <ul class="list-group rounded-none">
-                                    <li class="list-group-item border-0 align-items-start">
-                                        <div class="avatar bg-success me-3">
-                                            <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
-                                        </div>
-                                        <div>
-                                            <h6 class='text-bold'>New Order</h6>
-                                            <p class='text-xs'>
-                                                An order made by Ahmad Saugi for product Samsung Galaxy S69
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown nav-icon me-2">
-                            <a href="#" data-bs-toggle="dropdown"
-                                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="mail"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
-                                <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
-                                <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php"><i data-feather="log-out"></i> Salir</a>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown"
-                                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="avatar me-1">
-                                    <img src="assets/images/avatar/avatar-s-1.png" alt="" srcset="">
-                                </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
-                                <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
-                                <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php"><i data-feather="log-out"></i> Salir</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="main-content container-fluid">
-                <div class="page-title">
-                    <h3>Dashboard</h3>
-                    <p class="text-subtitle text-muted">A good dashboard to display your statistics</p>
-                </div>
-                <section class="section">
-                    <div class="row mb-2">
-                        <div class="col-12 col-md-3">
-                            <div class="card card-statistic">
-                                <div class="card-body p-0">
-                                    <div class="d-flex flex-column">
-                                        <div class='px-3 py-3 d-flex justify-content-between'>
-                                            <h3 class='card-title'>BALANCE</h3>
-                                            <div class="card-right d-flex align-items-center">
-                                                <p>$50 </p>
-                                            </div>
-                                        </div>
-                                        <div class="chart-wrapper">
-                                            <canvas id="canvas1" style="height:100px !important"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card card-statistic">
-                                <div class="card-body p-0">
-                                    <div class="d-flex flex-column">
-                                        <div class='px-3 py-3 d-flex justify-content-between'>
-                                            <h3 class='card-title'>Revenue</h3>
-                                            <div class="card-right d-flex align-items-center">
-                                                <p>$532,2 </p>
-                                            </div>
-                                        </div>
-                                        <div class="chart-wrapper">
-                                            <canvas id="canvas2" style="height:100px !important"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card card-statistic">
-                                <div class="card-body p-0">
-                                    <div class="d-flex flex-column">
-                                        <div class='px-3 py-3 d-flex justify-content-between'>
-                                            <h3 class='card-title'>ORDERS</h3>
-                                            <div class="card-right d-flex align-items-center">
-                                                <p>1,544 </p>
-                                            </div>
-                                        </div>
-                                        <div class="chart-wrapper">
-                                            <canvas id="canvas3" style="height:100px !important"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card card-statistic">
-                                <div class="card-body p-0">
-                                    <div class="d-flex flex-column">
-                                        <div class='px-3 py-3 d-flex justify-content-between'>
-                                            <h3 class='card-title'>Sales Today</h3>
-                                            <div class="card-right d-flex align-items-center">
-                                                <p>423 </p>
-                                            </div>
-                                        </div>
-                                        <div class="chart-wrapper">
-                                            <canvas id="canvas4" style="height:100px !important"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class='card-heading p-1 pl-3'>Sales</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4 col-12">
-                                            <div class="pl-3">
-                                                <h1 class='mt-5'>$21,102</h1>
-                                                <p class='text-xs'><span class="text-green"><i data-feather="bar-chart"
-                                                            width="15"></i> +19%</span> than last month</p>
-                                                <div class="legends">
-                                                    <div class="legend d-flex flex-row align-items-center">
-                                                        <div class='w-3 h-3 rounded-full bg-info me-2'></div><span
-                                                            class='text-xs'>Last Month</span>
-                                                    </div>
-                                                    <div class="legend d-flex flex-row align-items-center">
-                                                        <div class='w-3 h-3 rounded-full bg-blue me-2'></div><span
-                                                            class='text-xs'>Current Month</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-12">
-                                            <canvas id="bar"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Orders Today</h4>
-                                    <div class="d-flex ">
-                                        <i data-feather="download"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body px-0 pb-0">
-                                    <div class="table-responsive">
-                                        <table class='table mb-0' id="table1">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
-                                                    <th>City</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Graiden</td>
-                                                    <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                                    <td>076 4820 8838</td>
-                                                    <td>Offenburg</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dale</td>
-                                                    <td>fringilla.euismod.enim@quam.ca</td>
-                                                    <td>0500 527693</td>
-                                                    <td>New Quay</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nathaniel</td>
-                                                    <td>mi.Duis@diam.edu</td>
-                                                    <td>(012165) 76278</td>
-                                                    <td>Grumo Appula</td>
-                                                    <td>
-                                                        <span class="badge bg-danger">Inactive</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Darius</td>
-                                                    <td>velit@nec.com</td>
-                                                    <td>0309 690 7871</td>
-                                                    <td>Ways</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ganteng</td>
-                                                    <td>velit@nec.com</td>
-                                                    <td>0309 690 7871</td>
-                                                    <td>Ways</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Oleg</td>
-                                                    <td>rhoncus.id@Aliquamauctorvelit.net</td>
-                                                    <td>0500 441046</td>
-                                                    <td>Rossignol</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kermit</td>
-                                                    <td>diam.Sed.diam@anteVivamusnon.org</td>
-                                                    <td>(01653) 27844</td>
-                                                    <td>Patna</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card ">
-                                <div class="card-header">
-                                    <h4>Your Earnings</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="radialBars"></div>
-                                    <div class="text-center mb-5">
-                                        <h6>From last month</h6>
-                                        <h1 class='text-green'>+$2,134</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card widget-todo">
-                                <div
-                                    class="card-header border-bottom d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title d-flex">
-                                        <i class='bx bx-check font-medium-5 pl-25 pr-75'></i>Progress
-                                    </h4>
-
-                                </div>
-                                <div class="card-body px-0 py-1">
-                                    <table class='table table-borderless'>
-                                        <tr>
-                                            <td class='col-3'>UI Design</td>
-                                            <td class='col-6'>
-                                                <div class="progress progress-info">
-                                                    <div class="progress-bar" role="progressbar" style="width: 60%"
-                                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td class='col-3 text-center'>60%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class='col-3'>VueJS</td>
-                                            <td class='col-6'>
-                                                <div class="progress progress-success">
-                                                    <div class="progress-bar" role="progressbar" style="width: 35%"
-                                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td class='col-3 text-center'>30%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class='col-3'>Laravel</td>
-                                            <td class='col-6'>
-                                                <div class="progress progress-danger">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%"
-                                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td class='col-3 text-center'>50%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class='col-3'>ReactJS</td>
-                                            <td class='col-6'>
-                                                <div class="progress progress-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 80%"
-                                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td class='col-3 text-center'>80%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class='col-3'>Go</td>
-                                            <td class='col-6'>
-                                                <div class="progress progress-secondary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 65%"
-                                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td class='col-3 text-center'>65%</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2020 &copy; Voler</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">Ahmad Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
-        </div>
+<html>
+<title><?php echo $nombreSis ?> Ver. <?php echo $verSis ?> </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right"><img src="../assets/images/logo2.png" class="w3-margin-right" style="width:100px"></span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
-    <script src="assets/js/feather-icons/feather.min.js"></script>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <strong><?php echo $codigoUS ?></strong></span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="../logout.php" class="w3-bar-item w3-button"><i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Views</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  Settings</a>
+    <a href="../logout.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-arrow-circle-right"></i>  Salir</a><br><br>
+  </div>
+</nav>
 
-    <script src="assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="assets/js/pages/dashboard.js"></script>
 
-    <script src="assets/js/main.js"></script>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>52</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Messages</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>99</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Views</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>23</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Shares</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>50</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Users</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-panel">
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <h5>Regions</h5>
+        <img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">
+      </div>
+      <div class="w3-twothird">
+        <h5>Feeds</h5>
+        <table class="w3-table w3-striped w3-white">
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>New record, over 90 views.</td>
+            <td><i>10 mins</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
+            <td>Database error.</td>
+            <td><i>15 mins</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
+            <td>New record, over 40 users.</td>
+            <td><i>17 mins</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
+            <td>New comments.</td>
+            <td><i>25 mins</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
+            <td>Check transactions.</td>
+            <td><i>28 mins</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-laptop w3-text-red w3-large"></i></td>
+            <td>CPU overload.</td>
+            <td><i>35 mins</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
+            <td>New shares.</td>
+            <td><i>39 mins</i></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>General Stats</h5>
+    <p>New Visitors</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
+    </div>
+
+    <p>New Users</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
+    </div>
+
+    <p>Bounce Rate</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="w3-container">
+    <h5>Countries</h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+      <tr>
+        <td>United States</td>
+        <td>65%</td>
+      </tr>
+      <tr>
+        <td>UK</td>
+        <td>15.7%</td>
+      </tr>
+      <tr>
+        <td>Russia</td>
+        <td>5.6%</td>
+      </tr>
+      <tr>
+        <td>Spain</td>
+        <td>2.1%</td>
+      </tr>
+      <tr>
+        <td>India</td>
+        <td>1.9%</td>
+      </tr>
+      <tr>
+        <td>France</td>
+        <td>1.5%</td>
+      </tr>
+    </table><br>
+    <button class="w3-button w3-dark-grey">More Countries  <i class="fa fa-arrow-right"></i></button>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Recent Users</h5>
+    <ul class="w3-ul w3-card-4 w3-white">
+      <li class="w3-padding-16">
+        <img src="/w3images/avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <span class="w3-xlarge">Mike</span><br>
+      </li>
+      <li class="w3-padding-16">
+        <img src="/w3images/avatar5.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <span class="w3-xlarge">Jill</span><br>
+      </li>
+      <li class="w3-padding-16">
+        <img src="/w3images/avatar6.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <span class="w3-xlarge">Jane</span><br>
+      </li>
+    </ul>
+  </div>
+  <hr>
+
+  <div class="w3-container">
+    <h5>Recent Comments</h5>
+    <div class="w3-row">
+      <div class="w3-col m2 text-center">
+        <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
+      </div>
+      <div class="w3-col m10 w3-container">
+        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+      </div>
+    </div>
+
+    <div class="w3-row">
+      <div class="w3-col m2 text-center">
+        <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
+      </div>
+      <div class="w3-col m10 w3-container">
+        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
+        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row">
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-green">Demographic</h5>
+        <p>Language</p>
+        <p>Country</p>
+        <p>City</p>
+      </div>
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-red">System</h5>
+        <p>Browser</p>
+        <p>OS</p>
+        <p>More</p>
+      </div>
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-orange">Target</h5>
+        <p>Users</p>
+        <p>Active</p>
+        <p>Geo</p>
+        <p>Interests</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>FOOTER</h4>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
 </body>
-
 </html>
