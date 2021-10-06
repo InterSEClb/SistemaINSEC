@@ -388,7 +388,7 @@ desired effect
                     </div></td>
                   <td> 4</td>
                   <td>X</td>
-                </tr>
+  </tr>
                 </tfoot>
               </table>
             </div>
