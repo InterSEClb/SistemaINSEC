@@ -22,8 +22,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!--    Datatables  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>  
+    <title></title>
+    <style>
+        table.dataTable thead {
+          font-size: 20px;
+          background-color: #141414;
+          color: white;
+          padding: 15px;
+        }
+    </style>  
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -296,7 +305,7 @@ desired effect
     </section>
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <section class="container-fluid">
 
     <div class="row">
         <div class="col-lg-3 col-xs-6">
@@ -361,41 +370,55 @@ desired effect
         <!-- ./col -->
       </div>
 
-      <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
+
+
+    </section>
+    <div class="col-md-7">
+          <div class="box box-success box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Usuarios</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
+            
+            <table id="tablaUsuarios" class="table-striped table-bordered" style="width:100%">
+                <thead class="text-center">
+                    <th>Codigo ID</th>
+                    <th>Email</th>
+                    <th>Whatsapp</th>
+                    <th>Acciones</th>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td><div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div></td>
-                  <td> 4</td>
-                  <td>X</td>
-  </tr>
-                </tfoot>
-              </table>
+                    <?php
+                        foreach($usuarios as $usuario){
+                    ?>
+                    <tr>
+                        <td><?php echo $usuario['codigo_id']?></td>
+                        <td><?php echo $usuario['email']?></td>
+                        <td><?php echo $usuario['whatsapp']?></td>
+                        <td>
+                        <a class="btn btn-success" href="editar.php?codigo=<?php echo $usuario['codigo_id']?>" role="button"><i class="fa fa-pencil"></i> Editar</a>
+                        <a class="btn btn-danger" href="eliminar.php?codigo=<?php echo $usuario['codigo_id']?>" role="button"><i class="fa fa-trash-o"></i> Elliminar</a>
+                        </td>
+
+                    </tr>
+                    <?php
+                        }
+                    ?>
+                </tbody>
+            </table>
+            
             </div>
             <!-- /.box-body -->
           </div>
-
-    </section>
+          <!-- /.box -->
+        </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -497,22 +520,25 @@ desired effect
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- DataTables -->
-<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
+<!--    Datatables-->
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+      
+      
+      <script>
+        $(document).ready(function(){
+           $('#tablaUsuarios').DataTable(
+            {
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
+      'ordering'    : false,
+      'info'        : false,
       'autoWidth'   : false
-    })
-  })
-</script>
+    }
+           );
+           
+        });
+      </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->

@@ -22,5 +22,10 @@
 
         $totalUS = $bd->query("select count(1) from usuarios");
 
+		$consulta = "SELECT * FROM usuarios";
+		$resultado = $bd->prepare($consulta);
+		$resultado->execute();
+		$usuarios=$resultado->fetchAll(PDO::FETCH_ASSOC)
+
 	
 ?>
